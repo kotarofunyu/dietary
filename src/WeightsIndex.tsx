@@ -12,10 +12,10 @@ import {
 } from '@material-ui/core'
 
 const columns = [
-  { id: 'id', label: 'id', minWidth: 170 },
-  { id: 'date', label: 'date', minWidth: 100 },
-  { id: 'weight', label: 'weight', minWidth: 170 },
-  { id: 'comment', label: 'comment', minWidth: 170 },
+  { id: 'id', label: 'id', minWidth: 20 },
+  { id: 'date', label: 'date', minWidth: 80 },
+  { id: 'weight', label: 'weight', minWidth: 80 },
+  { id: 'comment', label: 'comment', minWidth: 200 },
 ]
 
 const weights: Array<Weight> = [
