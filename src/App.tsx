@@ -3,6 +3,7 @@ import './App.css'
 import { HeaderBar } from './HeaderBar'
 import { WeightsIndex } from './WeightsIndex'
 import { Form } from './Form'
+import { Login } from './Login'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <HeaderBar />
       <WeightsIndex />
       <Form />
+      <Login />
     </div>
   )
 }
