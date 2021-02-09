@@ -4,6 +4,18 @@ import { HeaderBar } from './HeaderBar'
 import { WeightsIndex } from './WeightsIndex'
 import { Form } from './Form'
 import { Login } from './Login'
+import axios from 'axios'
+
+function getUsers() {
+  axios
+    .get('http://localhost:3200/users', { withCredentials: true })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+}
 
 function App() {
   return (
@@ -12,6 +24,7 @@ function App() {
       <WeightsIndex />
       <Form />
       <Login />
+      <button onClick={getUsers}>get!</button>
     </div>
   )
 }
