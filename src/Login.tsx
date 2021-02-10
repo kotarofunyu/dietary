@@ -7,7 +7,6 @@ export function Login() {
   const [password, setPassword] = useState('')
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
-    // alert('submitted')
     const options = {
       withCredentials: true,
       headers: {
@@ -21,7 +20,6 @@ export function Login() {
           email: email,
           password: password,
         },
-        // { withCredentials: true },
         options,
       )
       .then((response) => {
