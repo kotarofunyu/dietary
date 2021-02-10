@@ -8,7 +8,10 @@ import axios from 'axios'
 
 function getUsers() {
   axios
-    .get('http://localhost:3200/users', { withCredentials: true })
+    .get('http://localhost:3200/users', {
+      withCredentials: true,
+      headers: { 'Custom-Header-Element': 'kochandayo' },
+    })
     .then((response) => {
       console.log(response)
     })
