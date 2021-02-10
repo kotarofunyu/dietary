@@ -27,7 +27,7 @@ function App() {
       <WeightsIndex />
       <Form />
       <Login />
-      <button onClick={getUsers}>get!</button>
+      {/* <button onClick={getUsers}>get!</button> */}
     </div>
   )
 }
