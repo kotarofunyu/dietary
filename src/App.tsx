@@ -20,7 +20,7 @@ import axios from 'axios'
 //     })
 // }
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <HeaderBar />
@@ -32,4 +32,4 @@ function App() {
   )
 }
 
-export default App
+// export default App
