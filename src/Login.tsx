@@ -1,35 +1,24 @@
 import React, { useState } from 'react'
 import { TextField, Button, Icon } from '@material-ui/core'
-import axios from 'axios'
+import { connect } from 'react-redux'
+import * as LoginActions from './modules/login'
 
-export function Login() {
+function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
-    const options = {
-      withCredentials: true,
-      headers: {
-        'Custom-Header-Element': 'kochandayo',
-      },
-    }
-    axios
-      .post(
-        'http://localhost:3200/login',
-        {
-          email: email,
-          password: password,
-        },
-        options,
-      )
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    submit(email, password)
+    console.log(props.login.user)
+
     event.preventDefault()
   }
+
+  const submit = async (email, password) => {
+    const loginAction = await LoginActions.login(email, password)
+    props.dispatch(loginAction)
+  }
+
   return (
     <div className="login">
       <form onSubmit={handleSubmit}>
@@ -54,3 +43,7 @@ export function Login() {
     </div>
   )
 }
+
+export default connect((state) => {
+  return state
+})(Login)
