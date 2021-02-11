@@ -28,11 +28,20 @@ export async function login(email: string, password: string) {
   }
 }
 
+type currentUser = {
+  id: number
+  name: string
+}
+
+type State = {
+  currentUser: currentUser | null
+}
+
 const initialState = {
   currentUser: null,
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action): State => {
   if (action.error) {
     return state
   }
