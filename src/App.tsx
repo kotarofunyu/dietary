@@ -3,24 +3,8 @@ import './App.css'
 import { HeaderBar } from './HeaderBar'
 import { WeightsIndex } from './WeightsIndex'
 import { Form } from './Form'
-import { Login } from './Login'
+import Login from './Login'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-
-// import axios from 'axios'
-
-// function getUsers() {
-//   axios
-//     .get('http://localhost:3200/users', {
-//       withCredentials: true,
-//       headers: { 'Custom-Header-Element': 'kochandayo' },
-//     })
-//     .then((response) => {
-//       console.log(response)
-//     })
-//     .catch((error) => {
-//       console.log(error)
-//     })
-// }
 
 export function App() {
   return (
