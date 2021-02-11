@@ -4,9 +4,20 @@ import { HeaderBar } from './HeaderBar'
 import { WeightsIndex } from './WeightsIndex'
 import { Form } from './Form'
 import Login from './Login'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from './modules/index'
+import { Auth } from './Auth'
 
 export function App() {
+  const hoge = useSelector((state: RootState) => state.login)
+  console.log(hoge)
   return (
     <div className="App">
       <HeaderBar />
@@ -26,15 +37,14 @@ export function App() {
             </ul>
           </nav>
           <Switch>
-            <Route path="/form">
-              <Form />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/">
-              <WeightsIndex />
-            </Route>
+            <Route path="/login" component={Login} />
+            <Auth>
+              <Switch>
+                <Route path="/form" component={Form} />
+                <Route path="/" component={WeightsIndex} />
+                <Redirect from="/" to="/form" />
+              </Switch>
+            </Auth>
           </Switch>
         </div>
       </Router>
