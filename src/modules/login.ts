@@ -29,7 +29,7 @@ export async function login(email: string, password: string) {
 }
 
 const initialState = {
-  user: null,
+  currentUser: null,
 }
 
 export default (state = initialState, action) => {
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case LOGIN: {
-      return { ...state, user: action.payload }
+      return { ...state, currentUser: action.payload.user }
     }
     default:
       return state

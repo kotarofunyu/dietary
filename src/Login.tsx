@@ -9,7 +9,7 @@ function Login(props) {
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     submit(email, password)
-    console.log(props.login.user)
+    console.log(props)
 
     event.preventDefault()
   }
