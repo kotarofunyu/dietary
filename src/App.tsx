@@ -29,8 +29,8 @@ export function App() {
           </nav>
           <Switch>
             <NoAuth path="/login" component={Login} />
+            <Auth exact path="/" component={WeightsIndex} />
             <Auth path="/form" component={Form} />
-            <Auth path="/" component={WeightsIndex} />
           </Switch>
         </div>
       </Router>
