@@ -8,8 +8,10 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Menu } from '@material-ui/icons'
+import CurrentUser from 'helpers/CurrentUser'
 
 export function HeaderBar() {
+  const currentUser = CurrentUser()
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -38,7 +40,15 @@ export function HeaderBar() {
         <Typography className={classes.title} variant="h6">
           dietary
         </Typography>
-        <Button color="inherit">Login</Button>
+        {currentUser ? (
+          <Button href="/" color="inherit">
+            ログアウト
+          </Button>
+        ) : (
+          <Button href="/login" color="inherit">
+            ログイン
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   )
