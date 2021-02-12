@@ -4,10 +4,12 @@ const error = 'エラーが発生しました'
 
 export const LOGIN = 'login'
 
+export const LOGOUT = 'logout'
+
 export async function login(email: string, password: string) {
   try {
     const { data } = await axios.post(
-      'http://localhost:3200/login',
+      'http://localhost:3200/session',
       { email: email, password: password },
       {
         withCredentials: true,
@@ -22,6 +24,26 @@ export async function login(email: string, password: string) {
   } catch (e) {
     return {
       type: LOGIN,
+      error: true,
+      payload: error,
+    }
+  }
+}
+
+export async function logout() {
+  try {
+    const { data } = await axios.delete('http://localhost:3200/session', {
+      withCredentials: true,
+      headers: { 'Custom-Header-Element': 'kochandayo' },
+    })
+
+    return {
+      type: LOGOUT,
+      payload: data,
+    }
+  } catch (e) {
+    return {
+      type: LOGOUT,
       error: true,
       payload: error,
     }
@@ -46,8 +68,11 @@ export default (state: State = initialState, action): State => {
     return state
   }
 
+  console.log(action.payload)
+
   switch (action.type) {
-    case LOGIN: {
+    case LOGIN:
+    case LOGOUT: {
       return { ...state, currentUser: action.payload.user }
     }
     default:
