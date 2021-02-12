@@ -9,7 +9,7 @@ export const LOGOUT = 'logout'
 export async function login(email: string, password: string) {
   try {
     const { data } = await axios.post(
-      'http://localhost:3200/login',
+      'http://localhost:3200/session',
       { email: email, password: password },
       {
         withCredentials: true,
@@ -32,7 +32,7 @@ export async function login(email: string, password: string) {
 
 export async function logout() {
   try {
-    const { data } = await axios.delete('http://localhost:3200/logout', {
+    const { data } = await axios.delete('http://localhost:3200/session', {
       withCredentials: true,
       headers: { 'Custom-Header-Element': 'kochandayo' },
     })
@@ -71,9 +71,7 @@ export default (state: State = initialState, action): State => {
   console.log(action.payload)
 
   switch (action.type) {
-    case LOGIN: {
-      return { ...state, currentUser: action.payload.user }
-    }
+    case LOGIN:
     case LOGOUT: {
       return { ...state, currentUser: action.payload.user }
     }
