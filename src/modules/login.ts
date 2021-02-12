@@ -8,14 +8,10 @@ export const LOGOUT = 'logout'
 
 export async function login(email: string, password: string) {
   try {
-    const { data } = await axios.post(
-      'http://localhost:3200/session',
-      { email: email, password: password },
-      {
-        withCredentials: true,
-        headers: { 'Custom-Header-Element': 'kochandayo' },
-      },
-    )
+    const { data } = await axios.post('/session', {
+      email: email,
+      password: password,
+    })
 
     return {
       type: LOGIN,
@@ -32,10 +28,7 @@ export async function login(email: string, password: string) {
 
 export async function logout() {
   try {
-    const { data } = await axios.delete('http://localhost:3200/session', {
-      withCredentials: true,
-      headers: { 'Custom-Header-Element': 'kochandayo' },
-    })
+    const { data } = await axios.delete('/session')
 
     return {
       type: LOGOUT,
