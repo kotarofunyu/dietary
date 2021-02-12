@@ -9,9 +9,18 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import { Menu } from '@material-ui/icons'
 import CurrentUser from 'helpers/CurrentUser'
+import { useDispatch } from 'react-redux'
+import * as LogoutAction from '../modules/login'
 
 export function HeaderBar() {
   const currentUser = CurrentUser()
+  const dispatch = useDispatch()
+
+  const submit = async () => {
+    const logoutAction = await LogoutAction.logout()
+    dispatch(logoutAction)
+  }
+
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -41,7 +50,7 @@ export function HeaderBar() {
           dietary
         </Typography>
         {currentUser ? (
-          <Button href="/" color="inherit">
+          <Button color="inherit" onClick={submit}>
             ログアウト
           </Button>
         ) : (
