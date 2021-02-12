@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from './modules/index'
 
-export function Auth({ component: Component, ...rest }) {
+export function NoAuth({ component: Component, ...rest }) {
   const currentUser = useSelector((state: RootState) => state.login.currentUser)
   console.log(currentUser)
 
@@ -11,7 +11,7 @@ export function Auth({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) => {
-        return currentUser ? <Component {...props} /> : <Redirect to="/login" />
+        return currentUser ? <Redirect to="/" /> : <Component {...props} />
       }}
     ></Route>
   )

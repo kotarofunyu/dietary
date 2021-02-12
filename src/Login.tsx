@@ -1,18 +1,9 @@
 import React, { useState } from 'react'
 import { TextField, Button, Icon } from '@material-ui/core'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import * as LoginActions from './modules/login'
-import { useHistory } from 'react-router-dom'
-import { RootState } from './modules/index'
 
 function Login(props) {
-  const currentUser = useSelector((state: RootState) => state.login.currentUser)
-  const history = useHistory()
-
-  if (currentUser) {
-    history.push('/')
-  }
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
