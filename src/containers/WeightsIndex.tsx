@@ -1,5 +1,5 @@
 import React from 'react'
-import { Weight } from './Weight'
+import { Weight } from '../types/Weight'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Paper,

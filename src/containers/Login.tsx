@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, Button, Icon } from '@material-ui/core'
 import { connect } from 'react-redux'
-import * as LoginActions from './modules/login'
+import * as LoginActions from '../modules/login'
 
 function Login(props) {
   const [email, setEmail] = useState('')
