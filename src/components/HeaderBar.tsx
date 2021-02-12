@@ -70,7 +70,6 @@ export function HeaderBar() {
       display: 'flex',
       alignItems: 'center',
       padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
       ...theme.mixins.toolbar,
       justifyContent: 'flex-end',
     },
@@ -82,15 +81,17 @@ export function HeaderBar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleDrawerOpen}
-          >
-            <Menu />
-          </IconButton>
+          {currentUser && (
+            <IconButton
+              className={classes.menuButton}
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleDrawerOpen}
+            >
+              <Menu />
+            </IconButton>
+          )}
           <Typography className={classes.title} variant="h6">
             dietary
           </Typography>
