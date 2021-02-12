@@ -42,7 +42,6 @@ export function App() {
               <Switch>
                 <Route path="/form" component={Form} />
                 <Route path="/" component={WeightsIndex} />
-                <Redirect from="/" to="/form" />
               </Switch>
             </Auth>
           </Switch>
