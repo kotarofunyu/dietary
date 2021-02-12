@@ -1,12 +1,12 @@
 import React from 'react'
-import './App.css'
-import { HeaderBar } from './HeaderBar'
-import { WeightsIndex } from './WeightsIndex'
-import { Form } from './Form'
-import Login from './Login'
+import './css/App.css'
+import { HeaderBar } from './components/HeaderBar'
+import { WeightsIndex } from './containers/WeightsIndex'
+import { Form } from './containers/Form'
+import Login from './containers/Login'
 import { BrowserRouter as Router, Switch, Link } from 'react-router-dom'
-import { Auth } from './Auth'
-import { NoAuth } from 'NoAuth'
+import { Auth } from './helpers/Auth'
+import { NoAuth } from 'helpers/NoAuth'
 
 export function App() {
   return (
