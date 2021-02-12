@@ -12,6 +12,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core'
+import { ListItemLink } from './ListItemLink'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import {
   Menu,
@@ -25,10 +26,6 @@ import { useDispatch } from 'react-redux'
 import * as LogoutAction from '../modules/login'
 
 const drawerWidth = 240
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />
-}
 
 export function HeaderBar() {
   const currentUser = CurrentUser()
