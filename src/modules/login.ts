@@ -68,8 +68,6 @@ export default (state: State = initialState, action): State => {
     return state
   }
 
-  console.log(action.payload)
-
   switch (action.type) {
     case LOGIN:
     case LOGOUT: {

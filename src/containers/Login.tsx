@@ -1,22 +1,21 @@
 import React, { useState } from 'react'
 import { TextField, Button, Icon } from '@material-ui/core'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as LoginActions from '../modules/login'
 
-function Login(props) {
+export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
 
-  const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
-    submit(email, password)
-    console.log(props)
-
-    event.preventDefault()
+  const login = async () => {
+    const loginAction = await LoginActions.login(email, password)
+    dispatch(loginAction)
   }
 
-  const submit = async (email, password) => {
-    const loginAction = await LoginActions.login(email, password)
-    props.dispatch(loginAction)
+  const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    login()
+    event.preventDefault()
   }
 
   return (
@@ -43,7 +42,3 @@ function Login(props) {
     </div>
   )
 }
-
-export default connect((state) => {
-  return state
-})(Login)

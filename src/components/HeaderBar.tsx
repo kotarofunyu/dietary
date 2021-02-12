@@ -16,7 +16,7 @@ export function HeaderBar() {
   const currentUser = CurrentUser()
   const dispatch = useDispatch()
 
-  const submit = async () => {
+  const handleClick = async () => {
     const logoutAction = await LogoutAction.logout()
     dispatch(logoutAction)
   }
@@ -50,7 +50,7 @@ export function HeaderBar() {
           dietary
         </Typography>
         {currentUser ? (
-          <Button color="inherit" onClick={submit}>
+          <Button color="inherit" onClick={handleClick}>
             ログアウト
           </Button>
         ) : (
