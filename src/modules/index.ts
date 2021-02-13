@@ -4,10 +4,12 @@ import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import login from './login'
+import diary from './diary'
 
 // ToDo: 現在はログイン中のユーザーのみ保存しているが、他にもstoreで管理する必要が出てきたらwhitelistを追加する
 const reducers = {
   login,
+  diary,
 }
 
 const persistConfig = {
