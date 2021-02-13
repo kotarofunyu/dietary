@@ -1,4 +1,4 @@
-export type Weight = {
+export type Diary = {
   id: number
   date: string
   weight: number

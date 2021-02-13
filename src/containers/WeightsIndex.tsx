@@ -1,5 +1,4 @@
-import React from 'react'
-import { Weight } from '../types/Weight'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Paper,
@@ -10,33 +9,14 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core'
+import * as DiaryActions from '../modules/diary'
+import { useDispatch } from 'react-redux'
 
 const columns = [
   { id: 'id', label: 'id', minWidth: 20 },
   { id: 'date', label: 'date', minWidth: 80 },
   { id: 'weight', label: 'weight', minWidth: 80 },
   { id: 'comment', label: 'comment', minWidth: 200 },
-]
-
-const weights: Array<Weight> = [
-  {
-    id: 1,
-    date: '2020-01-01',
-    weight: 90,
-    comment: '',
-  },
-  {
-    id: 2,
-    date: '2020-01-02',
-    weight: 91,
-    comment: '',
-  },
-  {
-    id: 3,
-    date: '2020-01-03',
-    weight: 91.2,
-    comment: '',
-  },
 ]
 
 const useStyles = makeStyles({
@@ -50,10 +30,25 @@ const useStyles = makeStyles({
 })
 
 export function WeightsIndex() {
-  const datas = weights
+  const [datas, setData] = useState([
+    { id: 0, date: 'loading...', comment: 'loading...', weight: 0 },
+  ])
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  const getDiaries = async () => {
+    const getDiariesAction = await DiaryActions.getDiaries()
+    dispatch(getDiariesAction)
+    setData(getDiariesAction.payload)
+  }
+
+  useEffect(() => {
+    getDiaries()
+  }, [])
+
   return (
     <div>
+      <button onClick={getDiaries}>reload</button>
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -70,14 +65,15 @@ export function WeightsIndex() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {datas.map((data) => (
-                <TableRow hover key={data.id} role="checkbox">
-                  <TableCell>{data.id}</TableCell>
-                  <TableCell>{data.date}</TableCell>
-                  <TableCell>{data.weight}</TableCell>
-                  <TableCell>{data.comment}</TableCell>
-                </TableRow>
-              ))}
+              {datas &&
+                datas.map((data) => (
+                  <TableRow hover key={data.id} role="checkbox">
+                    <TableCell>{data.id}</TableCell>
+                    <TableCell>{data.date}</TableCell>
+                    <TableCell>{data.weight}</TableCell>
+                    <TableCell>{data.comment}</TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
