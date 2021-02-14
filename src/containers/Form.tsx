@@ -33,7 +33,8 @@ export function Form({ setOpen: setOpen }) {
       date,
       comment,
     )
-    dispatch(createDiaryAction)
+    const getDiariesAction = await DiaryActions.getDiaries()
+    dispatch(getDiariesAction)
     if (createDiaryAction.error) {
       setIsError(true)
     } else {
