@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   TextField,
   TextareaAutosize,
@@ -28,7 +28,6 @@ export function Form({ setOpen: setOpen }) {
   const [isSuccess, setIsSuccess] = useState(false)
 
   const createDiary = async () => {
-    setProgress(true)
     const createDiaryAction = await DiaryActions.createDiary(
       weight,
       date,
@@ -43,12 +42,12 @@ export function Form({ setOpen: setOpen }) {
       dispatch(getDiariesAction)
       setOpen(false)
     }
-    setProgress(false)
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    setProgress(true)
     createDiary()
-    // GetDiaries()
+    setProgress(false)
     event.preventDefault()
   }
 
