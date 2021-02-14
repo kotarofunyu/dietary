@@ -12,15 +12,27 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
 import * as LoginActions from '../modules/login'
+import * as DiaryAction from '../modules/diary'
+import StatusAlert from 'components/StatusAlert'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
   const dispatch = useDispatch()
 
   const login = async () => {
     const loginAction = await LoginActions.login(email, password)
+    const getDiariesAction = await DiaryAction.getDiaries()
+
     dispatch(loginAction)
+    if (loginAction.error) {
+      setError(true)
+    } else {
+      setSuccess(true)
+      dispatch(getDiariesAction)
+    }
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -111,6 +123,10 @@ export default function Login() {
               >
                 ログイン
               </Button>
+              {success && (
+                <StatusAlert severity="success" message="ログイン成功" />
+              )}
+              {error && <StatusAlert severity="error" message="ログイン失敗" />}
             </form>
           </div>
         </Grid>
