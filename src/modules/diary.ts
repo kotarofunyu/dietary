@@ -4,6 +4,7 @@ import { Diary } from '../types/Diary'
 const error = 'エラーが発生しました'
 
 export const GET_DIARIES = 'getDiaries'
+export const CREATE_DIARY = 'createDiary'
 
 export async function getDiaries() {
   try {
@@ -11,11 +12,36 @@ export async function getDiaries() {
 
     return {
       type: GET_DIARIES,
+      error: false,
       payload: data,
     }
   } catch (e) {
     return {
       type: GET_DIARIES,
+      error: true,
+      payload: error,
+    }
+  }
+}
+
+export async function createDiary(
+  weight: number,
+  date: string,
+  comment: string,
+) {
+  try {
+    const { data } = await axios.post('/weights', {
+      weight: { weight: weight, date: date, comment: comment },
+    })
+
+    return {
+      type: CREATE_DIARY,
+      error: false,
+      payload: data,
+    }
+  } catch (e) {
+    return {
+      type: CREATE_DIARY,
       error: true,
       payload: error,
     }
