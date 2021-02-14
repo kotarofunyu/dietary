@@ -4,12 +4,10 @@ import {
   TextareaAutosize,
   Button,
   Icon,
-  Snackbar,
   CircularProgress,
 } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 import StatusAlert from 'components/StatusAlert'
 
 const formatDate = (dt: Date): string => {
@@ -48,10 +46,6 @@ export function Form({ setOpen: setOpen }) {
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     createDiary()
     event.preventDefault()
-  }
-
-  function Alert(props: AlertProps) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />
   }
 
   return (
