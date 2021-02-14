@@ -10,6 +10,7 @@ import {
 import { useDispatch } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
+import StatusAlert from 'components/StatusAlert'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -87,8 +88,12 @@ export function Form({ setOpen: setOpen }) {
         </div>
         <div className="progress">{progress && <CircularProgress />}</div>
         <div className="message">
-          {isSuccess && <Alert severity="success">投稿しました</Alert>}
-          {isError && <Alert severity="error">エラーがありました</Alert>}
+          {isSuccess && (
+            <StatusAlert severity="success" message="投稿しました" />
+          )}
+          {isError && (
+            <StatusAlert severity="error" message="エラーが発生しました" />
+          )}
         </div>
       </form>
     </div>

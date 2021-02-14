@@ -47,7 +47,6 @@ export function Modal({
   return (
     <ModalElement open={open} onClose={onClose}>
       <div style={modalStyle} className={classes.paper}>
-        <button onClick={() => setOpen(false)}>close!</button>
         <Component setOpen={setOpen} />
       </div>
     </ModalElement>
