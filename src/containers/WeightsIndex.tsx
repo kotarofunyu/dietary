@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Paper,
@@ -9,8 +9,8 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core'
-import * as DiaryActions from '../modules/diary'
-import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { RootState } from '../modules/index'
 
 const columns = [
   { id: 'id', label: 'id', minWidth: 20 },
@@ -30,25 +30,11 @@ const useStyles = makeStyles({
 })
 
 export function WeightsIndex() {
-  const [datas, setData] = useState([
-    { id: 0, date: 'loading...', comment: 'loading...', weight: 0 },
-  ])
   const classes = useStyles()
-  const dispatch = useDispatch()
-
-  const getDiaries = async () => {
-    const getDiariesAction = await DiaryActions.getDiaries()
-    dispatch(getDiariesAction)
-    setData(getDiariesAction.payload)
-  }
-
-  useEffect(() => {
-    getDiaries()
-  }, [])
+  const diaries = useSelector((state: RootState) => state.diary.diaries)
 
   return (
     <div>
-      <button onClick={getDiaries}>reload</button>
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -65,13 +51,13 @@ export function WeightsIndex() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {datas &&
-                datas.map((data) => (
-                  <TableRow hover key={data.id} role="checkbox">
-                    <TableCell>{data.id}</TableCell>
-                    <TableCell>{data.date}</TableCell>
-                    <TableCell>{data.weight}</TableCell>
-                    <TableCell>{data.comment}</TableCell>
+              {diaries &&
+                diaries.map((diary) => (
+                  <TableRow hover key={diary.id} role="checkbox">
+                    <TableCell>{diary.id}</TableCell>
+                    <TableCell>{diary.date}</TableCell>
+                    <TableCell>{diary.weight}</TableCell>
+                    <TableCell>{diary.comment}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>

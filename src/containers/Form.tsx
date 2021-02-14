@@ -9,6 +9,7 @@ import {
 import { useDispatch } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
+import * as DiaryAction from '../modules/diary'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -27,24 +28,26 @@ export function Form({ setOpen: setOpen }) {
   const [isSuccess, setIsSuccess] = useState(false)
 
   const createDiary = async () => {
-    setProgress(true)
     const createDiaryAction = await DiaryActions.createDiary(
       weight,
       date,
       comment,
     )
-    dispatch(createDiaryAction)
+
     if (createDiaryAction.error) {
       setIsError(true)
     } else {
       setIsSuccess(true)
+      const getDiariesAction = await DiaryAction.getDiaries()
+      dispatch(getDiariesAction)
       setOpen(false)
     }
-    setProgress(false)
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    setProgress(true)
     createDiary()
+    setProgress(false)
     event.preventDefault()
   }
 
