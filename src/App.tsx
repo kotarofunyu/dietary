@@ -31,7 +31,12 @@ export function App() {
   return (
     <div className="App">
       <HeaderBar />
-      <Modal component={Form} open={open} onClose={() => setOpen(false)} />
+      <Modal
+        component={Form}
+        open={open}
+        onClose={() => setOpen(false)}
+        setOpen={setOpen}
+      />
       {currentUser && (
         <AddIcon
           color="primary"

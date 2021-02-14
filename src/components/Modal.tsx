@@ -35,14 +35,20 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export function Modal({ component: Component, open: open, onClose: onClose }) {
+export function Modal({
+  component: Component,
+  open: open,
+  onClose: onClose,
+  setOpen: setOpen,
+}) {
   const classes = useStyles()
   const [modalStyle] = useState(getModalStyle)
 
   return (
     <ModalElement open={open} onClose={onClose}>
       <div style={modalStyle} className={classes.paper}>
-        <Component />
+        <button onClick={() => setOpen(false)}>close!</button>
+        <Component setOpen={setOpen} />
       </div>
     </ModalElement>
   )

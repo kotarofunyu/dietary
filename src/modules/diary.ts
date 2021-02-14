@@ -12,6 +12,7 @@ export async function getDiaries() {
 
     return {
       type: GET_DIARIES,
+      error: false,
       payload: data,
     }
   } catch (e) {
@@ -35,6 +36,7 @@ export async function createDiary(
 
     return {
       type: CREATE_DIARY,
+      error: false,
       payload: data,
     }
   } catch (e) {
