@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   TextField,
   TextareaAutosize,
@@ -9,6 +9,7 @@ import {
 import { useDispatch } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
+import * as DiaryAction from '../modules/diary'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -33,12 +34,13 @@ export function Form({ setOpen: setOpen }) {
       date,
       comment,
     )
-    const getDiariesAction = await DiaryActions.getDiaries()
-    dispatch(getDiariesAction)
+
     if (createDiaryAction.error) {
       setIsError(true)
     } else {
       setIsSuccess(true)
+      const getDiariesAction = await DiaryAction.getDiaries()
+      dispatch(getDiariesAction)
       setOpen(false)
     }
     setProgress(false)
@@ -46,6 +48,7 @@ export function Form({ setOpen: setOpen }) {
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     createDiary()
+    // GetDiaries()
     event.preventDefault()
   }
 
