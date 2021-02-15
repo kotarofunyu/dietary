@@ -5,6 +5,7 @@ const error = 'エラーが発生しました'
 
 export const GET_DIARIES = 'getDiaries'
 export const CREATE_DIARY = 'createDiary'
+export const DELETE_DIARY = 'deleteDiary'
 
 export async function getDiaries() {
   try {
@@ -30,7 +31,7 @@ export async function createDiary(
   comment: string,
 ) {
   try {
-    const { data } = await axios.post('/weights', {
+    const { data } = await axios.post('/weights/', {
       weight: { weight: weight, date: date, comment: comment },
     })
 
@@ -42,6 +43,24 @@ export async function createDiary(
   } catch (e) {
     return {
       type: CREATE_DIARY,
+      error: true,
+      payload: error,
+    }
+  }
+}
+
+export async function deleteDiary(id: number) {
+  try {
+    const { data } = await axios.delete(`/weights/${id}`)
+
+    return {
+      type: DELETE_DIARY,
+      error: false,
+      payload: data,
+    }
+  } catch (e) {
+    return {
+      type: DELETE_DIARY,
       error: true,
       payload: error,
     }
