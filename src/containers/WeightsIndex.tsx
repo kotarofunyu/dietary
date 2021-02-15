@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Paper,
@@ -12,6 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../modules/index'
 import * as DiaryActions from '../modules/diary'
+import StatusAlert from 'components/StatusAlert'
 
 const columns = [
   { id: 'date', label: 'date', minWidth: 80 },
@@ -34,13 +35,19 @@ export function WeightsIndex() {
   const classes = useStyles()
   const diaries = useSelector((state: RootState) => state.diary.diaries)
   const dispatch = useDispatch()
+  const [success, setSuccess] = useState(false)
+  const [error, setError] = useState(false)
 
   const deleteDiary = async (id) => {
     const deleteDiaryAction = await DiaryActions.deleteDiary(id)
     if (!deleteDiaryAction.error) {
-      alert('deleted!')
+      setError(false)
+      setSuccess(true)
       const getDiariesAction = await DiaryActions.getDiaries()
       dispatch(getDiariesAction)
+    } else {
+      setSuccess(false)
+      setError(true)
     }
   }
 
@@ -79,6 +86,8 @@ export function WeightsIndex() {
           </Table>
         </TableContainer>
       </Paper>
+      {success && <StatusAlert severity="success" message="削除しました" />}
+      {error && <StatusAlert severity="error" message="削除できませんでした" />}
     </div>
   )
 }
