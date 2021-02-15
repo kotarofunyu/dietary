@@ -31,7 +31,7 @@ export async function createDiary(
   comment: string,
 ) {
   try {
-    const { data } = await axios.post('/weights/', {
+    const { data } = await axios.post('/weights', {
       weight: { weight: weight, date: date, comment: comment },
     })
 
