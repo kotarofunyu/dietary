@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../modules/index'
 import * as DiaryActions from '../modules/diary'
 
@@ -33,11 +33,14 @@ const useStyles = makeStyles({
 export function WeightsIndex() {
   const classes = useStyles()
   const diaries = useSelector((state: RootState) => state.diary.diaries)
+  const dispatch = useDispatch()
 
   const deleteDiary = async (id) => {
     const deleteDiaryAction = await DiaryActions.deleteDiary(id)
     if (!deleteDiaryAction.error) {
       alert('deleted!')
+      const getDiariesAction = await DiaryActions.getDiaries()
+      dispatch(getDiariesAction)
     }
   }
 
