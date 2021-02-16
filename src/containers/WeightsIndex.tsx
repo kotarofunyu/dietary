@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../modules/index'
 import * as DiaryActions from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
+import { Modal } from 'components/Modal'
+import { Form } from './Form'
 
 const columns = [
   { id: 'date', label: 'date', minWidth: 80 },
@@ -37,6 +39,8 @@ export function WeightsIndex() {
   const dispatch = useDispatch()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [diary, setDiary] = useState({})
 
   const deleteDiary = async (id) => {
     const deleteDiaryAction = await DiaryActions.deleteDiary(id)
@@ -49,6 +53,18 @@ export function WeightsIndex() {
       setSuccess(false)
       setError(true)
     }
+  }
+
+  const editDiary = () => {
+    return (
+      <Modal
+        component={Form}
+        open={open}
+        setOpen={setOpen}
+        onClose={() => setOpen(false)}
+        data={diary}
+      />
+    )
   }
 
   return (
@@ -76,6 +92,14 @@ export function WeightsIndex() {
                     <TableCell>{diary.weight}</TableCell>
                     <TableCell>{diary.comment}</TableCell>
                     <TableCell>
+                      <button
+                        onClick={() => {
+                          setDiary(diary)
+                          setOpen(true)
+                        }}
+                      >
+                        edit
+                      </button>
                       <button onClick={() => deleteDiary(diary.id)}>
                         delete
                       </button>
@@ -86,6 +110,7 @@ export function WeightsIndex() {
           </Table>
         </TableContainer>
       </Paper>
+      {diary && editDiary()}
       {success && <StatusAlert severity="success" message="削除しました" />}
       {error && <StatusAlert severity="error" message="削除できませんでした" />}
     </div>

@@ -9,7 +9,6 @@ import {
 import { useDispatch } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
-import * as DiaryAction from '../modules/diary'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -18,10 +17,10 @@ const formatDate = (dt: Date): string => {
   return y + '-' + m + '-' + d
 }
 
-export function Form({ setOpen: setOpen }) {
-  const [weight, setWeight] = useState(0)
-  const [date, setDate] = useState(formatDate(new Date()))
-  const [comment, setComment] = useState('')
+export function Form({ setOpen: setOpen, data: data }) {
+  const [weight, setWeight] = useState(data ? data.weight : 0)
+  const [date, setDate] = useState(data ? data.date : formatDate(new Date()))
+  const [comment, setComment] = useState(data ? data.comment : '')
   const dispatch = useDispatch()
   const [progress, setProgress] = useState(false)
   const [isError, setIsError] = useState(false)
@@ -38,7 +37,25 @@ export function Form({ setOpen: setOpen }) {
       setIsError(true)
     } else {
       setIsSuccess(true)
-      const getDiariesAction = await DiaryAction.getDiaries()
+      const getDiariesAction = await DiaryActions.getDiaries()
+      dispatch(getDiariesAction)
+      setOpen(false)
+    }
+  }
+
+  const editDiary = async () => {
+    const editDiaryAction = await DiaryActions.editDiary(
+      data.id,
+      weight,
+      date,
+      comment,
+    )
+
+    if (editDiaryAction.error) {
+      setIsError(true)
+    } else {
+      setIsSuccess(true)
+      const getDiariesAction = await DiaryActions.getDiaries()
       dispatch(getDiariesAction)
       setOpen(false)
     }
@@ -46,7 +63,7 @@ export function Form({ setOpen: setOpen }) {
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     setProgress(true)
-    createDiary()
+    data ? editDiary() : createDiary()
     setProgress(false)
     event.preventDefault()
   }
@@ -75,6 +92,7 @@ export function Form({ setOpen: setOpen }) {
             aria-multiline
             rowsMin={3}
             placeholder="comment"
+            value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
         </div>

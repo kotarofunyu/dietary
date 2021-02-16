@@ -40,6 +40,7 @@ export function Modal({
   open: open,
   onClose: onClose,
   setOpen: setOpen,
+  data: data,
 }) {
   const classes = useStyles()
   const [modalStyle] = useState(getModalStyle)
@@ -47,7 +48,7 @@ export function Modal({
   return (
     <ModalElement open={open} onClose={onClose}>
       <div style={modalStyle} className={classes.paper}>
-        <Component setOpen={setOpen} />
+        <Component setOpen={setOpen} data={data} />
       </div>
     </ModalElement>
   )
