@@ -36,6 +36,7 @@ export function App() {
         open={open}
         onClose={() => setOpen(false)}
         setOpen={setOpen}
+        data={null}
       />
       {currentUser && (
         <AddIcon
