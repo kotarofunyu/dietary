@@ -26,32 +26,12 @@ export function Form({ setOpen: setOpen, data: data }) {
   const [isError, setIsError] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
 
-  const createDiary = async () => {
-    const createDiaryAction = await DiaryActions.createDiary(
-      weight,
-      date,
-      comment,
-    )
+  const handleDiary = async () => {
+    const handleDiaryAction = data
+      ? await DiaryActions.editDiary(data.id, weight, date, comment)
+      : await DiaryActions.createDiary(weight, date, comment)
 
-    if (createDiaryAction.error) {
-      setIsError(true)
-    } else {
-      setIsSuccess(true)
-      const getDiariesAction = await DiaryActions.getDiaries()
-      dispatch(getDiariesAction)
-      setOpen(false)
-    }
-  }
-
-  const editDiary = async () => {
-    const editDiaryAction = await DiaryActions.editDiary(
-      data.id,
-      weight,
-      date,
-      comment,
-    )
-
-    if (editDiaryAction.error) {
+    if (handleDiaryAction.error) {
       setIsError(true)
     } else {
       setIsSuccess(true)
@@ -63,7 +43,7 @@ export function Form({ setOpen: setOpen, data: data }) {
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     setProgress(true)
-    data ? editDiary() : createDiary()
+    handleDiary()
     setProgress(false)
     event.preventDefault()
   }
