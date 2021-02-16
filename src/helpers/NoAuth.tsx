@@ -1,9 +1,9 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import CurrentUser from './CurrentUser'
+import { useCurrentUser } from './useCurrentUser'
 
 export function NoAuth({ component: Component, ...rest }) {
-  const currentUser = CurrentUser()
+  const currentUser = useCurrentUser()
 
   return (
     <Route

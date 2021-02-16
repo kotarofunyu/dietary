@@ -21,20 +21,20 @@ import {
   Inbox,
   Mail,
 } from '@material-ui/icons'
-import CurrentUser from 'helpers/CurrentUser'
+import { useCurrentUser } from 'helpers/useCurrentUser'
 import { useDispatch } from 'react-redux'
-import * as LogoutAction from '../modules/login'
+import * as AuthActions from '../modules/auth'
 
 const drawerWidth = 240
 
 export function HeaderBar() {
-  const currentUser = CurrentUser()
+  const currentUser = useCurrentUser()
   const dispatch = useDispatch()
   const [open, setOpen] = useState(false)
   const theme = useTheme()
 
   const handleClick = async () => {
-    const logoutAction = await LogoutAction.logout()
+    const logoutAction = await AuthActions.logout()
     dispatch(logoutAction)
   }
 

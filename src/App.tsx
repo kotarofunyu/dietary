@@ -9,7 +9,7 @@ import { Auth } from './helpers/Auth'
 import { NoAuth } from 'helpers/NoAuth'
 import { createStyles, makeStyles } from '@material-ui/core'
 import { AddIcon } from './components/AddIcon'
-import CurrentUser from 'helpers/CurrentUser'
+import { useCurrentUser } from 'helpers/useCurrentUser'
 import { Modal } from './components/Modal'
 
 const useStyles = makeStyles(() =>
@@ -26,7 +26,7 @@ export function App() {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 
-  const currentUser = CurrentUser()
+  const currentUser = useCurrentUser()
 
   return (
     <div className="App">

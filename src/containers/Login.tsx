@@ -11,7 +11,7 @@ import {
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch } from 'react-redux'
-import * as LoginActions from '../modules/login'
+import * as AuthActions from '../modules/auth'
 import * as DiaryAction from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
 
@@ -23,7 +23,7 @@ export default function Login() {
   const dispatch = useDispatch()
 
   const login = async () => {
-    const loginAction = await LoginActions.login(email, password)
+    const loginAction = await AuthActions.login(email, password)
     const getDiariesAction = await DiaryAction.getDiaries()
 
     dispatch(loginAction)
