@@ -3,12 +3,19 @@ import React, { useState } from 'react'
 export const useStatus = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
+
   const setStatus = (string: string) => {
     switch (string) {
-      case 'success':
+      case 'success': {
         setSuccess(true)
-      case 'error':
+        setError(false)
+        break
+      }
+      case 'error': {
         setError(true)
+        setSuccess(false)
+        break
+      }
       default:
         setSuccess(false)
         setError(false)
