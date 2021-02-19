@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './css/App.css'
 import { HeaderBar } from './components/HeaderBar'
-import { WeightsIndex } from './containers/WeightsIndex'
 import { Form } from './containers/Form'
 import Login from './containers/Login'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
@@ -11,6 +10,7 @@ import { createStyles, makeStyles } from '@material-ui/core'
 import { AddIcon } from './components/AddIcon'
 import { useCurrentUser } from 'helpers/useCurrentUser'
 import { Modal } from './components/Modal'
+import { Top } from 'containers/Top'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -48,7 +48,7 @@ export function App() {
       <Router>
         <Switch>
           <NoAuth path="/login" component={Login} />
-          <Auth exact path="/" component={WeightsIndex} />
+          <Auth exact path="/" component={Top} />
         </Switch>
       </Router>
     </div>
