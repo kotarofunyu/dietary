@@ -9,6 +9,7 @@ import {
 import { useDispatch } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
+import { useStatus } from 'helpers/useStatus'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -23,22 +24,23 @@ export function Form({ setOpen: setOpen, data: data }) {
   const [comment, setComment] = useState(data ? data.comment : '')
   const dispatch = useDispatch()
   const [progress, setProgress] = useState(false)
-  const [isError, setIsError] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
+  const [success, error, setStatus] = useStatus()
 
   const handleDiary = async () => {
     const handleDiaryAction = data
       ? await DiaryActions.editDiary(data.id, weight, date, comment)
       : await DiaryActions.createDiary(weight, date, comment)
 
+    const getDiariesAction = await DiaryActions.getDiaries()
+
     if (handleDiaryAction.error) {
-      setIsError(true)
-    } else {
-      setIsSuccess(true)
-      const getDiariesAction = await DiaryActions.getDiaries()
-      dispatch(getDiariesAction)
-      setOpen(false)
+      setStatus('error')
+      return
     }
+
+    setStatus('success')
+    dispatch(getDiariesAction)
+    setOpen(false)
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -83,10 +85,8 @@ export function Form({ setOpen: setOpen, data: data }) {
         </div>
         <div className="progress">{progress && <CircularProgress />}</div>
         <div className="message">
-          {isSuccess && (
-            <StatusAlert severity="success" message="投稿しました" />
-          )}
-          {isError && (
+          {success && <StatusAlert severity="success" message="投稿しました" />}
+          {error && (
             <StatusAlert severity="error" message="エラーが発生しました" />
           )}
         </div>

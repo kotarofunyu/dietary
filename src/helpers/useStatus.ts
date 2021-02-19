@@ -4,6 +4,7 @@ export const useStatus = () => {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
 
+  // *冗長かな...
   const setStatus = (string: string) => {
     switch (string) {
       case 'success': {

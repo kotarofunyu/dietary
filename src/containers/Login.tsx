@@ -14,12 +14,12 @@ import { useDispatch } from 'react-redux'
 import * as AuthActions from '../modules/auth'
 import * as DiaryAction from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
+import { useStatus } from 'helpers/useStatus'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState(false)
+  const [success, error, setStatus] = useStatus()
   const dispatch = useDispatch()
 
   const login = async () => {
@@ -27,12 +27,13 @@ export default function Login() {
     const getDiariesAction = await DiaryAction.getDiaries()
 
     dispatch(loginAction)
+
     if (loginAction.error) {
-      setError(true)
-    } else {
-      setSuccess(true)
-      dispatch(getDiariesAction)
+      setStatus('error')
+      return
     }
+    setStatus('success')
+    dispatch(getDiariesAction)
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
