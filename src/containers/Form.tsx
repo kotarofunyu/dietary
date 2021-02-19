@@ -31,23 +31,21 @@ export function Form({ setOpen: setOpen, data: data }) {
       ? await DiaryActions.editDiary(data.id, weight, date, comment)
       : await DiaryActions.createDiary(weight, date, comment)
 
-    const getDiariesAction = await DiaryActions.getDiaries()
-
     if (handleDiaryAction.error) {
       setStatus('error')
       return
     }
 
     setStatus('success')
-    dispatch(getDiariesAction)
+    dispatch(await DiaryActions.getDiaries())
     setOpen(false)
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setProgress(true)
     handleDiary()
     setProgress(false)
-    event.preventDefault()
   }
 
   return (

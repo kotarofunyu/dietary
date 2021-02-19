@@ -24,7 +24,6 @@ export default function Login() {
 
   const login = async () => {
     const loginAction = await AuthActions.login(email, password)
-    const getDiariesAction = await DiaryAction.getDiaries()
 
     dispatch(loginAction)
 
@@ -32,13 +31,14 @@ export default function Login() {
       setStatus('error')
       return
     }
+
     setStatus('success')
-    dispatch(getDiariesAction)
+    dispatch(await DiaryAction.getDiaries())
   }
 
   const handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
-    login()
     event.preventDefault()
+    login()
   }
 
   const useStyles = makeStyles((theme) => ({
