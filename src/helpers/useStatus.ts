@@ -5,8 +5,8 @@ export const useStatus = () => {
   const [error, setError] = useState(false)
 
   // *冗長かな...
-  const setStatus = (string: string) => {
-    switch (string) {
+  const setStatus = (status: 'success' | 'error') => {
+    switch (status) {
       case 'success': {
         setSuccess(true)
         setError(false)
