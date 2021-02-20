@@ -5,11 +5,15 @@ import {
   Button,
   Icon,
   CircularProgress,
+  Select,
+  MenuItem,
 } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import * as DiaryActions from '../modules/diary'
 import StatusAlert from 'components/StatusAlert'
 import { useStatus } from 'helpers/useStatus'
+import { RootState } from 'modules'
+import { Tag } from 'types/Tag'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -22,14 +26,18 @@ export function Form({ setOpen: setOpen, data: data }) {
   const [weight, setWeight] = useState(data ? data.weight : 0)
   const [date, setDate] = useState(data ? data.date : formatDate(new Date()))
   const [comment, setComment] = useState(data ? data.comment : '')
+  const [selectedTag, setSelectedTag] = useState<number | null>(null)
   const dispatch = useDispatch()
   const [progress, setProgress] = useState(false)
   const [success, error, setStatus] = useStatus()
+  const tags: Array<Tag> | null = useSelector(
+    (state: RootState) => state.tag.tags,
+  )
 
   const handleDiary = async () => {
     const handleDiaryAction = data
       ? await DiaryActions.editDiary(data.id, weight, date, comment)
-      : await DiaryActions.createDiary(weight, date, comment)
+      : await DiaryActions.createDiary(weight, date, comment, selectedTag)
 
     if (handleDiaryAction.error) {
       setStatus('error')
@@ -66,6 +74,19 @@ export function Form({ setOpen: setOpen, data: data }) {
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
+        </div>
+        <div className="row">
+          <select
+            onChange={(event) => setSelectedTag(Number(event.target.value))}
+          >
+            {tags?.map((tag) => {
+              return (
+                <option value={tag.id} key={tag.id}>
+                  {tag.name}
+                </option>
+              )
+            })}
+          </select>
         </div>
         <div className="row">
           <TextareaAutosize
