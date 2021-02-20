@@ -3,4 +3,5 @@ export type Diary = {
   date: string
   weight: number
   comment: string
+  tags: Array<string>
 }
