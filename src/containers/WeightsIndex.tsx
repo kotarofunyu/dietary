@@ -19,6 +19,7 @@ import { Form } from './Form'
 const columns = [
   { id: 'date', label: 'date', minWidth: 80 },
   { id: 'weight', label: 'weight', minWidth: 80 },
+  { id: 'tags', label: 'tags', minWidth: 200 },
   { id: 'comment', label: 'comment', minWidth: 200 },
   { id: 'delete', label: 'delete', minWidth: 80 },
 ]
@@ -90,6 +91,13 @@ export function WeightsIndex() {
                   <TableRow hover key={diary.id} role="checkbox">
                     <TableCell>{diary.date}</TableCell>
                     <TableCell>{diary.weight}</TableCell>
+                    <TableCell>
+                      <ul>
+                        {diary.tags?.map((tag) => {
+                          return <li key={tag}>tag</li>
+                        })}
+                      </ul>
+                    </TableCell>
                     <TableCell>{diary.comment}</TableCell>
                     <TableCell>
                       <button
