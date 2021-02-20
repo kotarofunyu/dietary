@@ -74,6 +74,17 @@ export function HeaderBar() {
 
   const classes = useStyles()
 
+  const menuItems = [
+    {
+      text: '記録',
+      link: '/',
+    },
+    {
+      text: 'タグ管理',
+      link: '/tags',
+    },
+  ]
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -119,13 +130,13 @@ export function HeaderBar() {
         </div>
         <Divider />
         <List>
-          {['記録'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemLink href="/">
+          {menuItems.map((item, index) => (
+            <ListItem button key={item.text}>
+              <ListItemLink href={item.link}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <Inbox /> : <Mail />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item.text} />
               </ListItemLink>
             </ListItem>
           ))}

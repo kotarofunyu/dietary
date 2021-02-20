@@ -11,6 +11,7 @@ import { AddIcon } from './components/AddIcon'
 import { useCurrentUser } from 'helpers/useCurrentUser'
 import { Modal } from './components/Modal'
 import { Top } from 'containers/Top'
+import { TagIndex } from 'containers/Tag'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,6 +50,7 @@ export function App() {
         <Switch>
           <NoAuth path="/login" component={Login} />
           <Auth exact path="/" component={Top} />
+          <Auth exact path="/tags" component={TagIndex} />
         </Switch>
       </Router>
     </div>
