@@ -106,6 +106,10 @@ export function Form({ setOpen: setOpen, data: data }) {
     'Kelly Snyder',
   ]
 
+  const chipDelete = (name: string) => {
+    setPersonName(personName.filter((value) => value !== name))
+  }
+
   function getStyles(name: string, personName: string[], theme: Theme) {
     return {
       fontWeight:
@@ -166,7 +170,13 @@ export function Form({ setOpen: setOpen, data: data }) {
             renderValue={(selected) => (
               <div className={classes.chips}>
                 {(selected as string[]).map((value) => (
-                  <Chip key={value} label={value} className={classes.chip} />
+                  <Chip
+                    key={value}
+                    onDelete={() => chipDelete(value)}
+                    onMouseDown={(event) => event.stopPropagation()}
+                    label={value}
+                    className={classes.chip}
+                  />
                 ))}
               </div>
             )}
