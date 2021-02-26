@@ -5,7 +5,7 @@ import {
   Button,
   Icon,
   CircularProgress,
-  Select,
+  // Select,
   MenuItem,
   makeStyles,
   createStyles,
@@ -20,6 +20,7 @@ import StatusAlert from 'components/StatusAlert'
 import { useStatus } from 'helpers/useStatus'
 import { RootState } from 'modules'
 import { Tag } from 'types/Tag'
+import Select from 'react-select'
 
 const formatDate = (dt: Date): string => {
   const y = dt.getFullYear()
@@ -161,37 +162,13 @@ export function Form({ setOpen: setOpen, data: data }) {
         </div>
         <div className="row">
           <Select
-            labelId="demo-mutiple-chip-label"
-            id="demo-mutiple-chip"
-            multiple
-            value={personName}
-            onChange={handleChange}
-            input={<Input id="select-multiple-chip" />}
-            renderValue={(selected) => (
-              <div className={classes.chips}>
-                {(selected as string[]).map((value) => (
-                  <Chip
-                    key={value}
-                    onDelete={() => chipDelete(value)}
-                    onMouseDown={(event) => event.stopPropagation()}
-                    label={value}
-                    className={classes.chip}
-                  />
-                ))}
-              </div>
-            )}
-            MenuProps={MenuProps}
-          >
-            {names.map((name) => (
-              <MenuItem
-                key={name}
-                value={name}
-                style={getStyles(name, personName, theme)}
-              >
-                {name}
-              </MenuItem>
-            ))}
-          </Select>
+            defaultValue={'hoge'}
+            isMulti
+            name="colors"
+            options={['hoge', 'fuga', 'foo', 'bar']}
+            className="basic-multi-select"
+            classNamePrefix="select"
+          />
         </div>
         <div className="row">
           <TextareaAutosize
