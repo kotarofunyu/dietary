@@ -63,71 +63,6 @@ export function Form({ setOpen: setOpen, data: data }) {
     setProgress(false)
   }
 
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        maxWidth: 300,
-      },
-      chips: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
-      chip: {
-        margin: 2,
-      },
-      noLabel: {
-        marginTop: theme.spacing(3),
-      },
-    }),
-  )
-
-  const ITEM_HEIGHT = 48
-  const ITEM_PADDING_TOP = 8
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  }
-
-  const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ]
-
-  const chipDelete = (name: string) => {
-    setPersonName(personName.filter((value) => value !== name))
-  }
-
-  function getStyles(name: string, personName: string[], theme: Theme) {
-    return {
-      fontWeight:
-        personName.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    }
-  }
-
-  const classes = useStyles()
-  const theme = useTheme()
-  const [personName, setPersonName] = React.useState<string[]>([])
-
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setPersonName(event.target.value as string[])
-  }
-
   return (
     <div className="form">
       <form onSubmit={handleSubmit}>
@@ -165,7 +100,10 @@ export function Form({ setOpen: setOpen, data: data }) {
             defaultValue={'hoge'}
             isMulti
             name="colors"
-            options={['hoge', 'fuga', 'foo', 'bar']}
+            options={[
+              { label: 'hoge', value: 'Hoge' },
+              { label: 'fuga', value: 'Fuga' },
+            ]}
             className="basic-multi-select"
             classNamePrefix="select"
           />
